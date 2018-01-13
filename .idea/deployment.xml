@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Azure GPU">
+    <serverData>
+      <paths name="Azure GPU">
+        <serverdata>
+          <mappings>
+            <mapping deploy="fastai/deeplearning1/nbs" local="$PROJECT_DIR$/deeplearning1/nbs" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
