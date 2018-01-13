@@ -42,10 +42,9 @@ class Vgg16():
     """
 
 
-    def __init__(self):
+    def __init__(self, weights_path=None):
         self.FILE_PATH = 'http://files.fast.ai/models/'
-        self.create()
-        self.get_classes()
+        self.create(weights_path)
 
 
     def get_classes(self):
@@ -114,11 +113,15 @@ class Vgg16():
         model.add(Dropout(0.5))
 
 
-    def create(self):
+    def create(self, weights_path=None):
         """
             Creates the VGG16 network achitecture and loads the pretrained weights.
 
-            Args:   None
+            Args:   
+                weights_path (string): path to the HDF5 weights file on local filesystem
+                                       if present, uses the cats vs dogs architecture
+                                       else, uses the default Vgg16 architecture
+
             Returns:   None
         """
         model = self.model = Sequential()
@@ -135,8 +138,18 @@ class Vgg16():
         self.FCBlock()
         model.add(Dense(1000, activation='softmax'))
 
-        fname = 'vgg16.h5'
-        model.load_weights(get_file(fname, self.FILE_PATH+fname, cache_subdir='models'))
+        if weights_path:
+            # load from fine-tuned cats-vs-dogs arch
+            print('using cats-vs-dogs')
+            self.ft(2)
+            model.load_weights(weights_path)
+            self.classes = ['cats', 'dogs']
+        else:
+            # normal code
+            print('using vgg16 weights & architecture')
+            fname = 'vgg16.h5'
+            model.load_weights(get_file(fname, self.FILE_PATH+fname, cache_subdir='models'))
+            self.get_classes()
 
 
     def get_batches(self, path, gen=image.ImageDataGenerator(), shuffle=True, batch_size=8, class_mode='categorical'):
