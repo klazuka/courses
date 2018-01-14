@@ -213,7 +213,7 @@ class Vgg16():
             Trains the model for a fixed number of epochs (iterations on a dataset).
             See Keras documentation: https://keras.io/models/model/
         """
-        self.model.fit(trn, labels, nb_epoch=nb_epoch,
+        return self.model.fit(trn, labels, nb_epoch=nb_epoch,
                 validation_data=(val, val_labels), batch_size=batch_size)
 
 
@@ -222,7 +222,7 @@ class Vgg16():
             Fits the model on data yielded batch-by-batch by a Python generator.
             See Keras documentation: https://keras.io/models/model/
         """
-        self.model.fit_generator(batches, samples_per_epoch=batches.nb_sample, nb_epoch=nb_epoch,
+        return self.model.fit_generator(batches, samples_per_epoch=batches.nb_sample, nb_epoch=nb_epoch,
                 validation_data=val_batches, nb_val_samples=val_batches.nb_sample)
 
 
